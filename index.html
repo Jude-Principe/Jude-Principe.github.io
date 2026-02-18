@@ -665,56 +665,114 @@
       border: 1px solid rgba(59, 130, 246, 0.12);
     }
 
-    .edu-section {
+    .edu-inline {
       margin-top: 3rem;
       padding-top: 2.5rem;
       border-top: 1px solid var(--border);
-    }
-
-    .edu-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      display: flex;
+      align-items: center;
       gap: 1.5rem;
     }
 
-    .edu-card {
-      padding: 1.5rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      transition: border-color 0.3s;
+    .edu-inline .edu-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(59, 130, 246, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
     }
 
-    .edu-card:hover { border-color: var(--border-hover); }
-
-    .edu-card .edu-type {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      font-family: var(--font-display);
+    .edu-inline .edu-icon svg {
+      width: 20px;
+      height: 20px;
+      color: var(--accent-light);
     }
 
-    .edu-card h4 {
+    .edu-inline-text h4 {
       font-family: var(--font-display);
       font-size: 0.95rem;
       color: var(--text-bright);
       font-weight: 600;
-      margin-bottom: 0.2rem;
+      margin-bottom: 0.15rem;
     }
 
-    .edu-card p {
+    .edu-inline-text p {
       font-size: 0.825rem;
       color: var(--text-muted);
     }
 
-    .edu-card .cert-img {
-      width: 100%;
-      border-radius: 8px;
-      margin-top: 0.75rem;
+    /* ═══════════════ CERTIFICATIONS ═══════════════ */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .cert-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .cert-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(59, 130, 246, 0.06);
+    }
+
+    .cert-card-img {
+      width: 100%;
+      display: block;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cert-card-body {
+      padding: 1.5rem 1.75rem;
+    }
+
+    .cert-card-provider {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .cert-card-provider::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
+    }
+
+    .cert-card-body h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--text-bright);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.35rem;
+      line-height: 1.35;
+    }
+
+    .cert-card-date {
+      font-size: 0.825rem;
+      color: var(--text-muted);
     }
 
     /* ═══════════════ PROJECTS ═══════════════ */
@@ -937,7 +995,7 @@
       .hero-img-outer { max-width: 260px; }
       .services-grid { grid-template-columns: 1fr; }
       .projects-masonry { columns: 1; }
-      .edu-grid { grid-template-columns: 1fr; }
+      .cert-grid { grid-template-columns: 1fr; }
       .cta-buttons { flex-direction: column; align-items: center; }
       h1 { font-size: 2rem; }
       h2 { font-size: 1.65rem; margin-bottom: 2.5rem; }
@@ -963,6 +1021,7 @@
     <div class="nav-links">
       <a href="#services">Services</a>
       <a href="#experience">Experience</a>
+      <a href="#certifications">Certifications</a>
       <a href="#work">Work</a>
       <a href="#contact">Contact</a>
     </div>
@@ -1111,25 +1170,39 @@
 
     </div>
 
-    <!-- Education & Certification -->
-    <div class="edu-section reveal">
-      <div class="edu-grid">
-        <div class="edu-card">
-          <div class="edu-type">Education</div>
-          <h4>BSBA &mdash; Financial Management</h4>
-          <p>Laguna State Polytechnic University, Siniloan &middot; 2020 &ndash; 2025</p>
+    <!-- Education -->
+    <div class="edu-inline reveal">
+      <div class="edu-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" /></svg>
+      </div>
+      <div class="edu-inline-text">
+        <h4>BSBA &mdash; Financial Management</h4>
+        <p>Laguna State Polytechnic University, Siniloan &middot; 2020 &ndash; 2025</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <p class="section-label reveal">Credentials</p>
+    <h2 class="reveal">Certifications</h2>
+    <div class="cert-grid stagger">
+      <div class="cert-card reveal">
+        <img src="images/Screenshot 2026-02-18 at 11.13.19 AM.png" alt="n8n for Beginners: Build Automations from Scratch — Udemy Certificate" class="cert-card-img" loading="lazy">
+        <div class="cert-card-body">
+          <div class="cert-card-provider">Udemy</div>
+          <h3>n8n for Beginners: Build Automations from Scratch</h3>
+          <p class="cert-card-date">Completed February 2026 &middot; 8.5 hours</p>
         </div>
-        <div class="edu-card">
-          <div class="edu-type">Certification</div>
-          <h4>n8n for Beginners: Build Automations from Scratch</h4>
-          <p>Udemy &middot; Feb 2026</p>
-          <img src="images/Screenshot 2026-02-18 at 11.13.19 AM.png" alt="n8n for Beginners Certificate" class="cert-img" loading="lazy">
-        </div>
-        <div class="edu-card">
-          <div class="edu-type">Certification</div>
-          <h4>Prompt Engineering Full Training</h4>
-          <p>Technical Virtual Assistants PH &middot; Feb 2026</p>
-          <img src="images/Screenshot 2026-02-18 at 11.12.56 AM.png" alt="Prompt Engineering Certificate" class="cert-img" loading="lazy">
+      </div>
+      <div class="cert-card reveal">
+        <img src="images/Screenshot 2026-02-18 at 11.12.56 AM.png" alt="Prompt Engineering Full Training — TechVA Philippines Certificate" class="cert-card-img" loading="lazy">
+        <div class="cert-card-body">
+          <div class="cert-card-provider">Technical Virtual Assistants PH</div>
+          <h3>Prompt Engineering Full Training</h3>
+          <p class="cert-card-date">Completed February 2026</p>
         </div>
       </div>
     </div>
