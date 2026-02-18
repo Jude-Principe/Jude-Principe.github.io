@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jude Principe | AI Automation Specialist</title>
+  <meta name="description" content="AI Automation Specialist building intelligent workflows with n8n, Claude AI, and API integrations.">
+  <meta property="og:title" content="Jude Principe | AI Automation Specialist">
+  <meta property="og:description" content="Building intelligent workflows with n8n, Claude AI, and API integrations.">
+  <meta property="og:image" content="images/thumbnail.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #060810;
+      --bg-raised: #0c1220;
+      --bg-card: rgba(15, 23, 42, 0.5);
+      --border: rgba(148, 163, 184, 0.07);
+      --border-hover: rgba(148, 163, 184, 0.14);
+      --text: #cbd5e1;
+      --text-bright: #f1f5f9;
+      --text-muted: #64748b;
+      --accent: #3b82f6;
+      --accent-light: #60a5fa;
+      --accent-dark: #1d4ed8;
+      --accent-glow: rgba(59, 130, 246, 0.12);
+      --purple: #8b5cf6;
+      --green: #22c55e;
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* Noise overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 256px 256px;
+    }
+
+    /* ═══════════════ NAV ═══════════════ */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 0 2.5rem;
+      height: 72px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      background: rgba(6, 8, 16, 0.6);
+      border-bottom: 1px solid transparent;
+      transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
+    }
+
+    nav.scrolled {
+      background: rgba(6, 8, 16, 0.92);
+      border-bottom-color: var(--border);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: var(--text-bright);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    .nav-logo:hover { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-family: var(--font-body);
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 1.5px;
+      background: linear-gradient(90deg, var(--accent), var(--purple));
+      border-radius: 2px;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-links a:hover { color: var(--text-bright); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 1001;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text-bright);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    .nav-hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.active span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ═══════════════ HERO ═══════════════ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 7rem 2.5rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      left: -30%;
+      width: 160%;
+      height: 160%;
+      background: radial-gradient(ellipse at 30% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 55%),
+                  radial-gradient(ellipse at 70% 30%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+      animation: hero-glow 25s ease-in-out infinite;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(59, 130, 246, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.025) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 70%);
+      pointer-events: none;
+    }
+
+    @keyframes hero-glow {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(3%, -2%) scale(1.02); }
+      66% { transform: translate(-2%, 3%) scale(0.98); }
+    }
+
+    .hero-inner {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 0.85fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .hero-text { z-index: 1; }
+
+    /* Hero entrance animations */
+    .hero-enter { opacity: 0; transform: translateY(24px); animation: hero-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .hero-enter-d1 { animation-delay: 0.15s; }
+    .hero-enter-d2 { animation-delay: 0.3s; }
+    .hero-enter-d3 { animation-delay: 0.45s; }
+    .hero-enter-d4 { animation-delay: 0.6s; }
+    .hero-enter-d5 { animation-delay: 0.75s; }
+    .hero-enter-img { opacity: 0; transform: scale(0.94); animation: hero-scale-in 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; }
+
+    @keyframes hero-fade-up {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes hero-scale-in {
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.8rem;
+      color: var(--accent-light);
+      margin-bottom: 1.75rem;
+      background: var(--bg-card);
+      backdrop-filter: blur(8px);
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2.5s ease-in-out infinite;
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.4);
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5.5vw, 3.75rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+      color: var(--text-bright);
+      margin-bottom: 1.5rem;
+    }
+
+    h1 .gradient {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 40%, var(--purple) 80%, var(--accent) 100%);
+      background-size: 300% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradient-flow 8s ease infinite;
+    }
+
+    @keyframes gradient-flow {
+      0%, 100% { background-position: 0% center; }
+      50% { background-position: 100% center; }
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin-bottom: 1.75rem;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .hero-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2.25rem;
+    }
+
+    .tool-pill {
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.3rem 0.8rem;
+      border-radius: 6px;
+      background: var(--accent-glow);
+      color: var(--accent-light);
+      border: 1px solid rgba(59, 130, 246, 0.12);
+      letter-spacing: 0.02em;
+      transition: transform 0.15s, box-shadow 0.3s;
+      cursor: default;
+    }
+
+    .tool-pill:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.15);
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* Profile image */
+    .hero-image {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-img-outer {
+      position: relative;
+      background: linear-gradient(160deg, var(--accent), var(--purple), var(--accent-dark));
+      padding: 3px;
+      border-radius: 24px;
+      max-width: 380px;
+      width: 100%;
+      box-shadow:
+        0 0 60px rgba(59, 130, 246, 0.1),
+        0 0 120px rgba(139, 92, 246, 0.05);
+    }
+
+    .hero-img-inner {
+      border-radius: 22px;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    .hero-img-inner img {
+      width: 100%;
+      aspect-ratio: 3 / 3.8;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    .hero-stats {
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 2rem;
+      padding: 1rem 2rem;
+      background: rgba(12, 18, 32, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(148, 163, 184, 0.1);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      white-space: nowrap;
+      opacity: 0;
+      animation: hero-fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) 1s forwards;
+    }
+
+    .stat { text-align: center; }
+
+    .stat-num {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-bright);
+      line-height: 1.2;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ═══════════════ BUTTONS ═══════════════ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.75rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      font-family: var(--font-body);
+      text-decoration: none;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      border: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(59, 130, 246, 0.35);
+    }
+
+    .btn-primary:active { transform: translateY(0) scale(0.98); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-card);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost:active { transform: translateY(0) scale(0.98); }
+
+    /* Ripple */
+    .btn .ripple-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      transform: scale(0);
+      animation: ripple-expand 0.6s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes ripple-expand {
+      to { transform: scale(4); opacity: 0; }
+    }
+
+    /* ═══════════════ SECTIONS ═══════════════ */
+    section {
+      padding: 7rem 2.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .section-label {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-label::before {
+      content: '';
+      width: 24px;
+      height: 1.5px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      border-radius: 2px;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      color: var(--text-bright);
+      letter-spacing: -0.025em;
+      margin-bottom: 3.5rem;
+      line-height: 1.15;
+    }
+
+    /* Section divider */
+    .divider {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--purple));
+      border-radius: 2px;
+      margin: 0 auto;
+    }
+
+    /* ═══════════════ SERVICES ═══════════════ */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+
+    .service-card {
+      padding: 2rem;
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-glow), transparent);
+      opacity: 0;
+      transition: opacity 0.35s;
+    }
+
+    .service-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(59, 130, 246, 0.05);
+    }
+
+    .service-card:hover::before { opacity: 1; }
+    .service-card:active { transform: translateY(-1px) scale(0.99); }
+
+    .service-num {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.1em;
+    }
+
+    .service-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--text-bright);
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.01em;
+    }
+
+    .service-card p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ═══════════════ EXPERIENCE ═══════════════ */
+    .timeline {
+      position: relative;
+      padding-left: 2.5rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 8px;
+      bottom: 8px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), var(--purple) 50%, transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 2.5rem;
+    }
+
+    .timeline-item:last-child { padding-bottom: 0; }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.5rem;
+      top: 8px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
+      z-index: 1;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+
+    .timeline-item:hover::before {
+      background: var(--accent);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    }
+
+    .timeline-date {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+      letter-spacing: 0.03em;
+    }
+
+    .timeline-content h3 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      color: var(--text-bright);
+      font-weight: 600;
+      margin-bottom: 0.15rem;
+    }
+
+    .timeline-company {
+      font-size: 0.875rem;
+      color: var(--accent-light);
+      margin-bottom: 0.4rem;
+    }
+
+    .timeline-content p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 580px;
+    }
+
+    .timeline-badge {
+      display: inline-block;
+      padding: 0.2rem 0.65rem;
+      font-size: 0.7rem;
+      border-radius: 5px;
+      background: var(--accent-glow);
+      color: var(--accent-light);
+      font-weight: 500;
+      margin-top: 0.5rem;
+      border: 1px solid rgba(59, 130, 246, 0.12);
+    }
+
+    .edu-section {
+      margin-top: 3rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .edu-card {
+      padding: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: border-color 0.3s;
+    }
+
+    .edu-card:hover { border-color: var(--border-hover); }
+
+    .edu-card .edu-type {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-family: var(--font-display);
+    }
+
+    .edu-card h4 {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      color: var(--text-bright);
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .edu-card p {
+      font-size: 0.825rem;
+      color: var(--text-muted);
+    }
+
+    /* ═══════════════ PROJECTS ═══════════════ */
+    .projects-masonry {
+      columns: 2;
+      column-gap: 1.25rem;
+    }
+
+    .project-card {
+      break-inside: avoid;
+      margin-bottom: 1.25rem;
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .project-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(59, 130, 246, 0.06);
+    }
+
+    .project-card:active { transform: translateY(-2px) scale(0.995); }
+
+    .project-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--border);
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .project-card:hover .project-img { transform: scale(1.03); }
+
+    .project-img-wrap {
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .project-info {
+      padding: 1.5rem;
+    }
+
+    .project-info h3 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--text-bright);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .project-info p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .project-tag {
+      font-size: 0.675rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 5px;
+      background: var(--accent-glow);
+      color: var(--accent-light);
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      transition: box-shadow 0.3s;
+    }
+
+    .project-tag:hover {
+      box-shadow: 0 0 12px rgba(59, 130, 246, 0.2);
+    }
+
+    /* ═══════════════ CTA ═══════════════ */
+    .cta-section {
+      text-align: center;
+      padding: 8rem 2.5rem;
+      position: relative;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .cta-section h2 {
+      margin-bottom: 1rem;
+      font-size: clamp(2rem, 5vw, 2.75rem);
+    }
+
+    .cta-section > p {
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      font-size: 1.05rem;
+      font-weight: 300;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    /* ═══════════════ FOOTER ═══════════════ */
+    footer {
+      padding: 2.5rem 2.5rem;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    footer a:hover { color: var(--text-bright); }
+
+    /* ═══════════════ SCROLL ANIMATIONS ═══════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-28px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .stagger > .reveal:nth-child(1) { transition-delay: 0ms; }
+    .stagger > .reveal:nth-child(2) { transition-delay: 70ms; }
+    .stagger > .reveal:nth-child(3) { transition-delay: 140ms; }
+    .stagger > .reveal:nth-child(4) { transition-delay: 210ms; }
+    .stagger > .reveal:nth-child(5) { transition-delay: 280ms; }
+    .stagger > .reveal:nth-child(6) { transition-delay: 350ms; }
+    .stagger > .reveal:nth-child(7) { transition-delay: 420ms; }
+    .stagger > .reveal:nth-child(8) { transition-delay: 490ms; }
+    .stagger > .reveal:nth-child(9) { transition-delay: 560ms; }
+    .stagger > .reveal:nth-child(10) { transition-delay: 630ms; }
+    .stagger > .reveal:nth-child(11) { transition-delay: 700ms; }
+
+    /* ═══════════════ RESPONSIVE ═══════════════ */
+    @media (max-width: 1024px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 3rem;
+      }
+      .hero-image { order: -1; }
+      .hero-img-outer { max-width: 300px; }
+      .hero-sub { margin-left: auto; margin-right: auto; }
+      .hero-tools { justify-content: center; }
+      .hero-cta { justify-content: center; }
+      .projects-masonry { columns: 2; }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: rgba(6, 8, 16, 0.96);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        padding: 1.5rem 2rem;
+        gap: 1.25rem;
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-links.open { display: flex; }
+      .nav-hamburger { display: flex; }
+      section { padding: 5rem 1.5rem; }
+      .hero { padding: 6rem 1.5rem 4rem; }
+      .hero-img-outer { max-width: 260px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .projects-masonry { columns: 1; }
+      .edu-grid { grid-template-columns: 1fr; }
+      .cta-buttons { flex-direction: column; align-items: center; }
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.65rem; margin-bottom: 2.5rem; }
+      .timeline { padding-left: 2rem; }
+      .timeline-item::before { left: -2rem; width: 12px; height: 12px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding: 5.5rem 1rem 3rem; }
+      section { padding: 4rem 1rem; }
+      nav { padding: 0 1rem; }
+      .hero-img-outer { max-width: 220px; }
+      .hero-stats { gap: 1.5rem; padding: 0.75rem 1.5rem; }
+      .stat-num { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Jude Principe</a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#experience">Experience</a>
+      <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button class="nav-hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="tag hero-enter hero-enter-d1">
+          <span class="dot"></span>
+          Available for projects
+        </div>
+        <h1 class="hero-enter hero-enter-d2">I build <span class="gradient">AI automations</span> that do the work for you.</h1>
+        <p class="hero-sub hero-enter hero-enter-d3">
+          Automation Specialist turning repetitive tasks into intelligent workflows with n8n, Claude, and API integrations.
+        </p>
+        <div class="hero-tools hero-enter hero-enter-d4">
+          <span class="tool-pill">n8n</span>
+          <span class="tool-pill">Claude AI</span>
+          <span class="tool-pill">OpenAI / GPT</span>
+          <span class="tool-pill">Zapier</span>
+          <span class="tool-pill">API Integrations</span>
+          <span class="tool-pill">Data &amp; CRM</span>
+        </div>
+        <div class="hero-cta hero-enter hero-enter-d5">
+          <a href="#contact" class="btn btn-primary">Work with me</a>
+          <a href="#services" class="btn btn-ghost">See what I do</a>
+        </div>
+      </div>
+      <div class="hero-image hero-enter-img">
+        <div class="hero-img-outer">
+          <div class="hero-img-inner">
+            <img src="images/gemini pic.jpg" alt="Jude Principe" width="380" height="456">
+          </div>
+          <div class="hero-stats">
+            <div class="stat">
+              <span class="stat-num">11</span>
+              <span class="stat-label">Workflows</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">2+</span>
+              <span class="stat-label">Years XP</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">5</span>
+              <span class="stat-label">Active</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <p class="section-label reveal">What I do</p>
+    <h2 class="reveal">Services</h2>
+    <div class="services-grid stagger">
+      <div class="service-card reveal">
+        <div class="service-num">01</div>
+        <h3>Workflow Automation</h3>
+        <p>Design and deploy n8n workflows that eliminate manual, repetitive tasks and scale your operations.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">02</div>
+        <h3>AI Agent Development</h3>
+        <p>Build intelligent agents using Claude and GPT models that handle conversations, generate content, and make decisions.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">03</div>
+        <h3>API &amp; System Integration</h3>
+        <p>Connect your existing tools through APIs and webhooks into a seamless, automated pipeline.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">04</div>
+        <h3>Process Optimization</h3>
+        <p>Audit your current workflows, identify bottlenecks, and implement automation that saves hours per week.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <p class="section-label reveal">Background</p>
+    <h2 class="reveal">Experience</h2>
+    <div class="timeline">
+
+      <div class="timeline-item reveal-left">
+        <div class="timeline-date">Feb 2026 &mdash; Present</div>
+        <div class="timeline-content">
+          <h3>AI Automation Specialist</h3>
+          <div class="timeline-company">TechVAPhilippines &middot; Remote</div>
+          <p>Designing integrations using n8n, APIs, and AI models. Delivering scalable automation solutions tailored to client needs.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal-left">
+        <div class="timeline-date">Jan 2026 &mdash; Present</div>
+        <div class="timeline-content">
+          <h3>Automation Specialist</h3>
+          <div class="timeline-company">HudasFlow AI &middot; Full-time</div>
+          <p>Building AI-powered automation workflows using n8n, Zapier, and API integrations. Streamlining operations and creating end-to-end automated solutions.</p>
+          <span class="timeline-badge">n8n Certified</span>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal-left">
+        <div class="timeline-date">Jul 2022 &mdash; Present</div>
+        <div class="timeline-content">
+          <h3>Co-Owner</h3>
+          <div class="timeline-company">J4 Apartment &middot; Calabarzon, Philippines</div>
+          <p>Manage rent collection, property monitoring, and tenant issue resolution. Handle budget monitoring and strategic planning for operations.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal-left">
+        <div class="timeline-date">Aug 2025 &mdash; Nov 2025</div>
+        <div class="timeline-content">
+          <h3>Quality Checker</h3>
+          <div class="timeline-company">Veeva Systems &middot; Remote</div>
+          <p>Audited data records for accuracy and compliance across CRM systems.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal-left">
+        <div class="timeline-date">Jul 2023 &mdash; Jan 2026</div>
+        <div class="timeline-content">
+          <h3>Data Steward</h3>
+          <div class="timeline-company">Veeva Systems &middot; Remote</div>
+          <p>Conducted web-based research and entered accurate records into Veeva CRM. Ensured data met quality standards and compliance requirements. Performed phone validation to confirm data accuracy and reduce errors.</p>
+          <span class="timeline-badge">Quality Champion Award</span>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal-left">
+        <div class="timeline-date">Jun 2025 &mdash; Aug 2025</div>
+        <div class="timeline-content">
+          <h3>Inventory Specialist</h3>
+          <div class="timeline-company">Laguna State Polytechnic University (GSO) &middot; Contract</div>
+          <p>Maintained inventory records through regular counts of office items and supplies. Tracked vehicle odometer readings to support campus fleet management.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal-left">
+        <div class="timeline-date">Feb 2025 &mdash; Jun 2025</div>
+        <div class="timeline-content">
+          <h3>Intern</h3>
+          <div class="timeline-company">Laguna State Polytechnic University (GSO) &middot; On-site</div>
+          <p>Supported inventory operations and fulfilled internal item requests.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Education & Certification -->
+    <div class="edu-section reveal">
+      <div class="edu-grid">
+        <div class="edu-card">
+          <div class="edu-type">Education</div>
+          <h4>BSBA &mdash; Financial Management</h4>
+          <p>Laguna State Polytechnic University, Siniloan &middot; 2020 &ndash; 2025</p>
+        </div>
+        <div class="edu-card">
+          <div class="edu-type">Certification</div>
+          <h4>n8n for Beginners: Build Automations from Scratch</h4>
+          <p>Udemy</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- WORK -->
+  <section id="work">
+    <p class="section-label reveal">Projects</p>
+    <h2 class="reveal">Built with n8n</h2>
+    <div class="projects-masonry stagger">
+
+      <div class="project-card reveal">
+        <div class="project-img-wrap">
+          <img src="images/AI Customer Support Chatbot.png" alt="AI Customer Support Chatbot" class="project-img" loading="lazy" decoding="async">
+        </div>
+        <div class="project-info">
+          <h3>AI Customer Support Chatbot</h3>
+          <p>24/7 AI-powered customer support chatbot with hosted chat widget. Uses an AI Agent with conversation memory, professional system prompt with escalation rules, and handles orders, returns, pricing, tech support, and account inquiries.</p>
+          <div class="project-tags">
+            <span class="project-tag">Chat Trigger</span>
+            <span class="project-tag">AI Agent</span>
+            <span class="project-tag">OpenAI</span>
+            <span class="project-tag">Memory</span>
+            <span class="project-tag">Customer Support</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-img-wrap">
+          <img src="images/Lead Capture Qualification.png" alt="Lead Capture & Auto-Qualification" class="project-img" loading="lazy" decoding="async">
+        </div>
+        <div class="project-info">
+          <h3>Lead Capture &amp; Auto-Qualification</h3>
+          <p>Professional web form that captures leads and auto-scores them based on budget, email domain, company, and description quality. Routes hot/warm leads to instant follow-up and cold leads to nurture sequences.</p>
+          <div class="project-tags">
+            <span class="project-tag">Form Trigger</span>
+            <span class="project-tag">Lead Scoring</span>
+            <span class="project-tag">Code Node</span>
+            <span class="project-tag">Conditional Routing</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-img-wrap">
+          <img src="images/AI Content Generator API.png" alt="AI Content Generator API" class="project-img" loading="lazy" decoding="async">
+        </div>
+        <div class="project-info">
+          <h3>AI Content Generator API</h3>
+          <p>REST API endpoint that generates blog posts, social media, emails, and SEO articles on demand. Validates input, routes errors gracefully, and returns structured JSON with content metadata. Generates in seconds what takes hours to write.</p>
+          <div class="project-tags">
+            <span class="project-tag">Webhook API</span>
+            <span class="project-tag">OpenAI</span>
+            <span class="project-tag">Input Validation</span>
+            <span class="project-tag">Content Generation</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-img-wrap">
+          <img src="images/Whatsapp automation.png" alt="WhatsApp Automation" class="project-img" loading="lazy" decoding="async">
+        </div>
+        <div class="project-info">
+          <h3>WhatsApp AI Assistant</h3>
+          <p>Multi-modal WhatsApp bot that handles text, audio, and image messages. Routes through a Switch node, transcribes voice with OpenAI Whisper, analyzes images, manages conversation memory with Redis, and responds via AI Agent.</p>
+          <div class="project-tags">
+            <span class="project-tag">WhatsApp</span>
+            <span class="project-tag">OpenAI</span>
+            <span class="project-tag">Redis</span>
+            <span class="project-tag">Whisper</span>
+            <span class="project-tag">AI Agent</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-img-wrap">
+          <img src="images/AMSR video automation.png" alt="ASMR Video Creator" class="project-img" loading="lazy" decoding="async">
+        </div>
+        <div class="project-info">
+          <h3>ASMR Video Creator</h3>
+          <p>Automated content pipeline that generates AI prompts, tracks topics in Google Sheets, renders videos via external API with JWT auth, and uploads directly to YouTube on a schedule.</p>
+          <div class="project-tags">
+            <span class="project-tag">YouTube</span>
+            <span class="project-tag">Google Sheets</span>
+            <span class="project-tag">JWT Auth</span>
+            <span class="project-tag">Video API</span>
+            <span class="project-tag">Scheduled</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-img-wrap">
+          <img src="images/Linkedin Autopost.png" alt="LinkedIn Autopost" class="project-img" loading="lazy" decoding="async">
+        </div>
+        <div class="project-info">
+          <h3>LinkedIn Autopost</h3>
+          <p>Scheduled workflow that generates posts with an AI Agent, hashes content for Redis-based duplicate detection, generates images with DALL-E, and auto-publishes to LinkedIn.</p>
+          <div class="project-tags">
+            <span class="project-tag">LinkedIn</span>
+            <span class="project-tag">DALL-E</span>
+            <span class="project-tag">Redis</span>
+            <span class="project-tag">AI Agent</span>
+            <span class="project-tag">Dedup</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-img-wrap">
+          <img src="images/AI Chatbot.png" alt="AI Chatbot" class="project-img" loading="lazy" decoding="async">
+        </div>
+        <div class="project-info">
+          <h3>AI Chatbot</h3>
+          <p>Webhook-triggered conversational AI that receives POST requests, processes messages through an OpenAI-powered Agent, and returns structured JSON responses in real time.</p>
+          <div class="project-tags">
+            <span class="project-tag">Webhook</span>
+            <span class="project-tag">OpenAI</span>
+            <span class="project-tag">AI Agent</span>
+            <span class="project-tag">REST API</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-img-wrap">
+          <img src="images/AI Customer Service Agent (Shared Brain).png" alt="AI Customer Service Agent" class="project-img" loading="lazy" decoding="async">
+        </div>
+        <div class="project-info">
+          <h3>AI Customer Service Agent (Shared Brain)</h3>
+          <p>Centralized AI sub-workflow that powers WhatsApp, Messenger, and Instagram customer service. Uses Google Gemini with Simple Memory, Shopify tools for order lookup and product search, and a Business Logic tool for FAQs and escalation.</p>
+          <div class="project-tags">
+            <span class="project-tag">Google Gemini</span>
+            <span class="project-tag">AI Agent</span>
+            <span class="project-tag">Shopify</span>
+            <span class="project-tag">Sub-Workflow</span>
+            <span class="project-tag">Memory</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-img-wrap">
+          <img src="images/Facebook Messenger Customer Service Channel.png" alt="Messenger Customer Service" class="project-img" loading="lazy" decoding="async">
+        </div>
+        <div class="project-info">
+          <h3>Facebook Messenger Customer Service</h3>
+          <p>Webhook-driven Messenger channel with a Code node that normalizes deeply nested Facebook payloads, an IF filter to block echoes and read receipts, and fallback error handling &mdash; all routing through the shared AI brain.</p>
+          <div class="project-tags">
+            <span class="project-tag">Messenger</span>
+            <span class="project-tag">Facebook API</span>
+            <span class="project-tag">Webhook</span>
+            <span class="project-tag">Echo Filter</span>
+            <span class="project-tag">AI Agent</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-img-wrap">
+          <img src="images/WhatsApp Customer Service Channel.png" alt="WhatsApp Customer Service" class="project-img" loading="lazy" decoding="async">
+        </div>
+        <div class="project-info">
+          <h3>WhatsApp Customer Service Channel</h3>
+          <p>WhatsApp Business API integration that extracts message data, calls the shared AI Agent sub-workflow, and sends intelligent replies with retry-on-fail error handling and fallback messages.</p>
+          <div class="project-tags">
+            <span class="project-tag">WhatsApp</span>
+            <span class="project-tag">Business API</span>
+            <span class="project-tag">Sub-Workflow</span>
+            <span class="project-tag">Error Handling</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-img-wrap">
+          <img src="images/Instagram DM Customer Service Channel.png" alt="Instagram DM Customer Service" class="project-img" loading="lazy" decoding="async">
+        </div>
+        <div class="project-info">
+          <h3>Instagram DM Customer Service</h3>
+          <p>Instagram Direct Messages channel with dual webhook endpoints &mdash; POST for incoming DMs and GET for Meta verification. Routes messages through the shared AI brain and replies via Graph API with fallback support.</p>
+          <div class="project-tags">
+            <span class="project-tag">Instagram</span>
+            <span class="project-tag">Graph API</span>
+            <span class="project-tag">Webhook</span>
+            <span class="project-tag">Meta Platform</span>
+            <span class="project-tag">AI Agent</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contact">
+    <p class="section-label reveal" style="justify-content:center">Let's talk</p>
+    <h2 class="reveal">Ready to automate?</h2>
+    <p class="reveal">Tell me what's eating your time. I'll build the workflow that fixes it.</p>
+    <div class="cta-buttons reveal">
+      <a href="https://www.linkedin.com/in/jude-principe-5162a11b0/" target="_blank" class="btn btn-primary">Message on LinkedIn</a>
+      <a href="https://www.upwork.com/freelancers/~015a50c86098d67813" target="_blank" class="btn btn-ghost">Hire on Upwork</a>
+      <a href="https://www.onlinejobs.ph/jobseekers/info/2302244" target="_blank" class="btn btn-ghost">OnlineJobs.ph</a>
+      <a href="mailto:principejude0@gmail.com" class="btn btn-ghost">Send an email</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-links">
+      <a href="https://www.linkedin.com/in/jude-principe-5162a11b0/" target="_blank">LinkedIn</a>
+      <a href="https://www.upwork.com/freelancers/~015a50c86098d67813" target="_blank">Upwork</a>
+      <a href="https://www.onlinejobs.ph/jobseekers/info/2302244" target="_blank">OnlineJobs.ph</a>
+    </div>
+    <p>&copy; 2026 Jude Principe. Built with purpose.</p>
+  </footer>
+
+  <script>
+    /* Scroll animations */
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal, .reveal-left').forEach(el => io.observe(el));
+
+    /* Nav scroll effect */
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 40);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    /* Mobile menu */
+    const hamburger = document.querySelector('.nav-hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('open');
+      });
+    });
+
+    /* Ripple on buttons */
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const circle = document.createElement('span');
+        circle.classList.add('ripple-circle');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        circle.style.width = circle.style.height = size + 'px';
+        circle.style.left = (e.clientX - rect.left - size / 2) + 'px';
+        circle.style.top = (e.clientY - rect.top - size / 2) + 'px';
+        this.appendChild(circle);
+        circle.addEventListener('animationend', () => circle.remove());
+      });
+    });
+
+    /* Smooth scroll with offset */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          const top = target.getBoundingClientRect().top + window.scrollY - 90;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

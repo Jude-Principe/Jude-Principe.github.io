@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 1200px;
+      height: 630px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0a0a0a;
+      font-family: -apple-system, 'Segoe UI', sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+    .bg-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.3;
+    }
+    .glow-blue {
+      background: #3b82f6;
+      top: -200px;
+      left: -100px;
+    }
+    .glow-purple {
+      background: #a855f7;
+      bottom: -250px;
+      right: -100px;
+    }
+    .content {
+      position: relative;
+      text-align: center;
+      z-index: 2;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      border: 1px solid #1a1a1a;
+      border-radius: 100px;
+      font-size: 14px;
+      color: #3b82f6;
+      margin-bottom: 32px;
+      background: #111;
+    }
+    .badge .dot {
+      width: 8px;
+      height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+    }
+    h1 {
+      font-size: 56px;
+      font-weight: 700;
+      color: #fafafa;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    h1 span {
+      background: linear-gradient(135deg, #3b82f6, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .sub {
+      font-size: 20px;
+      color: #737373;
+      font-weight: 300;
+      margin-bottom: 36px;
+    }
+    .tools {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+    .tool {
+      padding: 10px 24px;
+      background: #111;
+      border: 1px solid #1a1a1a;
+      border-radius: 8px;
+      color: #e5e5e5;
+      font-size: 15px;
+      font-weight: 500;
+    }
+    .tool.highlight {
+      border-color: #3b82f6;
+      color: #3b82f6;
+      background: rgba(59, 130, 246, 0.08);
+    }
+    .name {
+      position: absolute;
+      bottom: 32px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 15px;
+      color: #525252;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow glow-blue"></div>
+  <div class="bg-glow glow-purple"></div>
+  <div class="content">
+    <div class="badge">
+      <span class="dot"></span>
+      AI Automation Specialist
+    </div>
+    <h1>I build <span>AI automations</span><br>that do the work for you.</h1>
+    <p class="sub">n8n Workflows &bull; AI Agents &bull; API Integrations</p>
+    <div class="tools">
+      <div class="tool highlight">n8n</div>
+      <div class="tool highlight">Claude AI</div>
+      <div class="tool">OpenAI</div>
+      <div class="tool">Redis</div>
+      <div class="tool">APIs</div>
+    </div>
+  </div>
+  <div class="name">JUDE PRINCIPE</div>
+</body>
+</html>
